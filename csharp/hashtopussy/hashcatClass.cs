@@ -438,16 +438,15 @@ namespace hashtopussy
             catch
             {
                 Console.WriteLine("Something went wrong with keyspace measuring");
+                return false;
             }
-            finally
+            if (hcProcKeyspace.ExitCode != 0)
             {
-                if (hcProcKeyspace.ExitCode != 0)
-                {
-                    Console.WriteLine("Something went wrong with keyspace measuring");
-                }
-
-                hcProcKeyspace.Close();
+                Console.WriteLine("Something went wrong with keyspace measuring");
+                return false;
             }
+
+            hcProcKeyspace.Close();
 
             parseKeyspace(stdOutSingle,ref keySpace);
 
